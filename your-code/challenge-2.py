@@ -7,32 +7,36 @@ The code is functional but has a lot of room for improvement. Use what you have 
 about simple and efficient code, refactor the code.
 """
 
-def RandomStringGenerator(l=12, a=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9']):
-    p = 0
-    s = ''
-    while p<l:
-        import random
-        s += random.choice(a)
-        p += 1
-    return s
+#This cost me a lot of work just to understand the code since it had too many variables and all of them with
+#terrible names that meant nothing.
+#Also, having a simple operation like this split between 2 different functions does not seem to be very smart
+#It was also bothering me that the order of the steps was not intuitive, I needed it to 'flow better'
+#So, I will guide you to my steps:
 
-def BatchStringGenerator(n, a=8, b=12):
-    r = []
-    for i in range(n):
-        c = None
-        if a < b:
-            import random
-            c = random.choice(range(a, b))
-        elif a == b:
-            c = a
-        else:
-            import sys
-            sys.exit('Incorrect min and max string lengths. Try again.')
-        r.append(RandomStringGenerator(c))
-    return r
+def RandomStringGenerator():
+    #inputs inside the function, wrap it all up. also rename them to make some sense
+    minimo = int(input('Enter minimum string length: '))
+    maximo = int(input('Enter maximum string length: '))
+    limite = int(input('How many random strings to generate? '))
+    #import string module so do not need to have a huge list of manually written strings
+    import string
+    import random
+    #define chars variable for lowercase and digits
+    chars = string.ascii_lowercase + string.digits
+    #empty list where our strings will go
+    str_lst = []
+    #prevent errors
+    if minimo > maximo:
+        return 'Incorrect min and max string lengths. Try again.'
+    #loop to have the same operation the number of times we need.
+    while len(str_lst) < limite:
+        #tmp variable for our random choice
+        tmp = random.choice(range(minimo, maximo + 1))
+        #tmp string to create strings
+        tmp_str = ''.join(random.choice(chars) for _ in range(tmp))
+        #add string to list
+        str_lst.append(tmp_str)
+    #return list
+    return str_lst
 
-a = input('Enter minimum string length: ')
-b = input('Enter maximum string length: ')
-n = input('How many random strings to generate? ')
-
-print(BatchStringGenerator(int(n), int(a), int(b)))
+print(RandomStringGenerator())
