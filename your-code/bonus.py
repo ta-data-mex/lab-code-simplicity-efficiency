@@ -1,3 +1,25 @@
+import numpy as np
+
+
+def solution(num):
+    first = np.identity(num-1) + np.ones((num-1,num-1))
+    examples = [first]
+    if num%2 == 0:
+        numbercount = num//2-2
+        base=2
+    else:
+        numbercount = num//2-1
+        base=1
+    for i in range(numbercount):
+        a =examples[-1][:-1,:-1] + np.diag(np.ones(num-(3+(2*i))), k=i+1) + np.diag(np.ones(i+1), k=-(num-(3+(2*i)))) + np.diag(np.ones(i), k=-(num-(2+(2*i))))
+        examples.append(a)
+    final_ans = sum([len(element) for element in examples])+base
+    return final_ans
+
+stairs = int(input("Number of stairs: "))
+print(f"Ways to climb to the top: {solution(stairs)}")
+
+
 """
 You are climbing a stair case. It takes n steps to reach to the top.
 Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
@@ -13,20 +35,12 @@ The following class calculates the total ways to climb a stair with the specifie
 It also counts the number of calculations performed which indicates the efficiency of the code.
 Try if you can improve the performance of the code.
 """
-
+"""
 class ClimbStairs:
-    """
-    Class constructor
-    total_steps: how many steps in total in the stair
-    """
     def __init__(self, total_steps=10): 
         self.total_steps = total_steps
         self.calculation_count = 0
 
-    """
-    This function calculates how many solutions are there to reach the top when I am currently at the ith step
-    i - the step I am currently at
-    """
     def calc_solutions(self, i):
         # If the current step is already larger than total steps, there's 0 solution
         if i > self.total_steps:
@@ -54,3 +68,4 @@ total_steps = input("How many steps in the stair?")
 new_challenge = ClimbStairs(int(total_steps))
 print('Ways to climb to top: ' + str(new_challenge.solve()))
 print('Total calculations performed: ' + str(new_challenge.get_calculation_count()))
+"""
