@@ -24,15 +24,16 @@ class ClimbStairs:
         self.calculation_count = 0
 
     """
-    This function calculates how many solutions are there to reach the top when I am currently at the ith step
-    i - the step I am currently at
+    This function calculates how many solutions are there to reach the top when I am currently at the ith 
+    step i - the step I am currently at
     """
     def calc_solutions(self, i):
         # If the current step is already larger than total steps, there's 0 solution
         if i > self.total_steps:
             return 0
 
-        # If the current step equals to the total steps, there is only one solution because I've reached the top
+        # If the current step equals to the total steps, there is only one solution because I've reached 
+        # the top
         if i == self.total_steps:
             return 1
 
@@ -48,9 +49,34 @@ class ClimbStairs:
         return self.calculation_count
 
     def solve(self):
-        return self.calc_solutions(0)
+        #return self.calc_solutions(0)
+        return self.calc_solutions2(self.total_steps)
+    
+    def calc_solutions2(self,i):
+        act_l = [1,0]
+        next_l = [1,1]
+        if i == 1:
+            return 1
+        elif i == 2:
+            return 2
+        else:
+            for i in range(i-2):
+                self.calculation_count += 2
+                new_l = [act_l[0]+next_l[0],act_l[1]+next_l[1]]
+                act_l = next_l
+                next_l = new_l
+            self.calculation_count += 1
+            return new_l[0]+new_l[1]
+
+# In the optimization of this code I got the pattern in the secuence of the decision tree 
+# for a stair with 30 steps the original recursively made 2178308 calculations.
+# In the alternative implementation we get the same result with 57 calculations (2 sums in
+# a for loop with 28 iterations and a final sum to return the result)
+
+# A problem is that if we try to save all the posible ways with the new implementation it is
+# not posible and I think that with the first we could do it.
 
 total_steps = input("How many steps in the stair?")
 new_challenge = ClimbStairs(int(total_steps))
 print('Ways to climb to top: ' + str(new_challenge.solve()))
-print('Total calculations performed: ' + str(new_challenge.get_calculation_count()))
+print('Total calculations performed: ' + str(new_challenge.get_calculation_count())) 
