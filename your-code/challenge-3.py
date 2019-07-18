@@ -12,19 +12,17 @@ The following function shows one way to solve the problem but the code is not id
 Refactor the code based on what you have learned about code simplicity and efficiency.
 """
 
-def my_function(X):
-    solutions = []
-    for x in range(5, X):
-        for y in range(4, X):
-            for z in range(3, X):
-                if (x*x==y*y+z*z):
-                  solutions.append([x, y, z])
-    m = 0
-    for solution in solutions:
-        if m < max(solution):
-            m = max(solution)
-    return m
+# Renombré la función y las variables a algo significativo con el propósito de la función. Coloqué dentro de la función
+# el input que sólo acepta números enteros y el print le di un formato más amigable. El cálculo de los posibles lados
+# que pueden formar el triángulo lo puse en una compreh-
+# ensión de lista.
 
-X = input("What is the maximal length of the triangle side? Enter a number: ")
-
-print("The longest side possible is " + str(my_function(int(X))))
+def triangle_longest_side():
+    num = int(input("What is the maximal length of the triangle side? Enter a number: "))
+    side = 0
+    solutions = [[a, b, c] for a in range(5, num) for b in range(4, num) for c in range(3, num) if (a*a == b*b + c*c)]
+    for sides in solutions:
+        if side < max(sides):
+            side = max(sides)
+    print(f"The longest side possible is {side}")
+    return side
