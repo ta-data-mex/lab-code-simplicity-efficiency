@@ -13,17 +13,9 @@ Refactor the code based on what you have learned about code simplicity and effic
 """
 
 def my_function(X):
-    solutions = []
-    for x in range(5, X):
-        for y in range(4, X):
-            for z in range(3, X):
-                if (x*x==y*y+z*z):
-                  solutions.append([x, y, z])
-    m = 0
-    for solution in solutions:
-        if m < max(solution):
-            m = max(solution)
-    return m
+    a= [0]
+    solutions = [a.extend([x, y, z]) for x in range(1, X) for y in range(1, X) for z in range(1, X) if (x*x==y*y+z*z)]
+    return max(a)
 
 X = input("What is the maximal length of the triangle side? Enter a number: ")
 
