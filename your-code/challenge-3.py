@@ -1,3 +1,4 @@
+
 """
 You are presented with an integer number larger than 5. Your goal is to identify the longest side
 possible in a right triangle whose sides are not longer than the number you are given.
@@ -12,19 +13,14 @@ The following function shows one way to solve the problem but the code is not id
 Refactor the code based on what you have learned about code simplicity and efficiency.
 """
 
-def my_function(X):
-    solutions = []
-    for x in range(5, X):
-        for y in range(4, X):
-            for z in range(3, X):
-                if (x*x==y*y+z*z):
-                  solutions.append([x, y, z])
-    m = 0
-    for solution in solutions:
-        if m < max(solution):
-            m = max(solution)
-    return m
+def get_longest_side(num):
+    solutions = [[x,y,z] for x in range(5,num) for y in range(4,num) for z in range(3,num) if (x*x==y*y+z*z)]
+    lado = 0
+    for value in solutions:
+        if lado < max(value):
+            lado = max(value)
+    return str(lado)
 
-X = input("What is the maximal length of the triangle side? Enter a number: ")
+num = int(input("What is the maximal length of the triangle side? Enter a number: "))
 
-print("The longest side possible is " + str(my_function(int(X))))
+print("The longest side possible is {}".format(str(get_longest_side((num)))))
